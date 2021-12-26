@@ -1,6 +1,8 @@
 # moebiusmania.net restoration
 
-> old WordPress blog as a set of static pages, thanks to Next.js.
+> Restoration of my old moebiusmania.net blog in next.js
+
+Starting from a WordPress backup file I'm using the Next.js node framework to dynamically create a set of static pages that recreates parts of the original blog, so that it can be uploaded on static file hosting like Github Pages and work as a public backup/restoration project of my old blog that will require much less maintenance and costs since no PHP and no databases are involved.
 
 ## Do you want to "backup" your old WordPress blog as a static website?
 
