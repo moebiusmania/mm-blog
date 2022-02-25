@@ -30,6 +30,7 @@ export default function Home() {
       <Head>
         <title>{BLOG.title}</title>
         <meta name="description" content={BLOG.description} />
+        <meta name="author" content="Salvatore Laisa" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
