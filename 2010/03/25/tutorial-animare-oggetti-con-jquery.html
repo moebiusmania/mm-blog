@@ -1,0 +1,45 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><title>MoebiusMania - Animare oggetti con jQuery</title><meta name="description" content="Tutorial, articoli e curiosità sul web e dintorni"/><link rel="icon" href="/favicon.ico"/><meta name="next-head-count" content="5"/><link rel="preload" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" data-n-g=""/><link rel="preload" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/mm-blog/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/mm-blog/_next/static/chunks/webpack-7d9a46201a9abf62.js" defer=""></script><script src="/mm-blog/_next/static/chunks/framework-6e4ba497ae0c8a3f.js" defer=""></script><script src="/mm-blog/_next/static/chunks/main-0c81636966d3c8b4.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/_app-9cd1d19dd7237c4c.js" defer=""></script><script src="/mm-blog/_next/static/chunks/50-8cf1ac8ca3219c88.js" defer=""></script><script src="/mm-blog/_next/static/chunks/669-e20bab15e87eef56.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Btitle%5D-dfa7902dbb7724f4.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_buildManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_ssgManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="Home_container__bCOhY"><main class="Home_main__nLjiQ"><h1 class="Home_title__T09hD">MoebiusMania</h1><p class="Home_description__41Owk">Tutorial, articoli e curiosità sul web e dintorni</p><div class="Home_grid__GxQ85"><h3>Animare oggetti con jQuery</h3><div>Nel primo tutorial che ho pubblicato tempo fa su jQuery, abbiamo accennata molto velocemente a una funzione che permetteva di animare da codice degli elementi Html, oggi rivedremo quella funzione con un po&#x27; più di dettagli e ne analizzeremo altre che ci permetteranno di creare effetti animati per le nostre pagine web e renderle più &quot;cool&quot; ;).
+
+Se non avete mai usato le funzioni di animazione messe a disposizione da jQuery questo tutorial vi fornirà le basi per poterci smanettare!
+<h3>Software richiesto</h3>
+Code editor a scelta (<em><a href="http://www.aptana.org/" target="_blank">Aptana</a>, <a href="http://www.panic.com/coda/" target="_blank">Coda</a>, <a href="http://www.adobe.com/it/products/dreamweaver/" target="_blank">Dreamweaver</a>, ecc..</em>)
+<h3>Prerequisiti</h3>
+I due precedenti tutorial su jQuery (<em><a href="http://www.moebiusmania.net/2009/01/26/iniziamo-con-jquery/">primo</a> e <a href="http://www.moebiusmania.net/2009/04/13/tutorial-sistemiamo-il-csstip-6-con-jquery/">secondo</a></em>)
+<h3>Argomenti trattati</h3>
+Funzioni animate(), hide() e show() di jQuery, proprietà Css &quot;display&quot;.
+<h2>1. Accendiamo jQuery</h2>
+Per questo tutorial metto a disposizione un file di inizio e uno di fine in uno zip scaricabile [download id=&quot;7&quot; format=&quot;1&quot;]. Nel file di inizio troverete una pagina Html basilare con alcuni elementi grafici gia inseriti che animeremo nel corso del tutorial.
+
+Se invece volete utilizzare queste tecniche su una vostra pagina preesistente dovrete innanzitutto &quot;installare&quot; jQuery sulla vostra pagina, se non sapete come fare vi ricordo che ho già pubblicato un <a href="http://www.moebiusmania.net/2009/01/26/iniziamo-con-jquery/">tutorial a riguardo</a>.
+<h2>2. I CSS di partenza</h2>
+Una cosa bella di Javascript e jQuery è che &quot;continuano&quot; quello che abbiamo iniziato con i Css, quindi spesso potreste notare che per ottenere effetti interessanti è bene iniziare proprio da questo linguaggio. Se vogliamo mostrare qualcosa prima dobbiamo nasconderlo, se vogliamo fare entrare qualcosa prima dobbiamo mandarlo fuori:
+<pre class="brush:css"> display: none /* Rende un oggetto non visibile */
+ right: -100px /* Posizionamento &quot;negativo&quot; */</pre>
+La proprietà &quot;display&quot; non va confusa con l&#x27;opacità, non rende solo trasparente un elemento ma fa in modo che non venga proprio elaborato visivamente, quindi gli elementi circostanti si comporteranno come se questo non ci fosse ; mentre usando dei valori negativi di posizione ad oggetti con posizionamento assoluto o fisso li mandiamo fuori dallo schermo senza cancellari, che è una grande cosa!
+<h2>3. Animare</h2>
+Ok ora passiamo allo script, all&#x27;interno della funzione principale scriviamo questa riga di codice:
+<pre class="brush:js">// Il metodo animate()
+$(&quot;#oggetto&quot;).animate({&quot;right&quot;:&quot;5px&quot;},1000);</pre>
+La funzione &quot;animate&quot; di jQuery l&#x27;avevamo già vista nel <a href="http://www.moebiusmania.net/2009/01/26/iniziamo-con-jquery/">primo tutorial</a>, ora la analizziamo un po più a fondo:
+<ul><li>per prima cosa passiamo una serie di proprietà Css con il rispettivo valore all&#x27;interno di una parentesi graffa</li><li>per ogni cosa che vogliamo animare dobbiamo indicare prima la proprietà e il valore <span style="text-decoration:underline">verso</span> il quale deve l&#x27;interpolazione deve avere luogo (<em>il punto di partenza sono gli attuali valori Cs</em>s)</li><li>se vogliamo animare più proprietà alla volta le separiamo con una virgola <span style="text-decoration:underline">dentro</span> la parentesi graffa, per esempio {&quot;top&quot;:&quot;10px&quot;,&quot;right&quot;:&quot;15px&quot;}</li><li>dopo la parentesi graffa scriviamo una virgola e indichiamo la durata dell&#x27;interpolazione in <span style="text-decoration:underline">millisecondi</span>, quindi 1 secondo = 1000 millisecondi.</li></ul>
+Con questa funzione e dei buoni Css iniziali potete ottenere gran parte delle animazioni più comuni!
+<h2>4. Nascondi &amp; Mostra</h2>
+Adesso diamoci dentro con l&#x27;elemento che abbiamo nascosto all&#x27;inizio con &quot;display:none&quot;:
+<pre class="brush:js">// Mostro l&#x27;elemento nascosto con i Css
+$(&quot;#oggetto2&quot;).fadeIn();</pre>
+come potete immaginare fadeIn() (<em>le maiuscole sono importanti</em>) è una funzione che esegue un effetto di dissolvenza in entrata, possiamo al contrario usare fadeOut() per fare una dissolvenza in uscita. Nella stessa famiglia ci sono anche le funzioni slideUp() e slideDown() che invece eseguono un&#x27;animazione a tendina (<em>il primo nasconde e il secondo mostra</em>), mentre i metodi più generici show() e hide() eseguono fade e slide in modo combinato.
+<h2>5. Qualche considerazione</h2>
+Le funzioni del passo precedente condividono una cosa interessante, dentro la loro parentesi tonda possiamo inserire un valore numerico per esprimere in millisecondi la durata dell&#x27;animazione, quindi se volessi modificare l&#x27;azione di prima per far si che duri mezzo secondo devo solo fare una piccola modifica:
+<pre class="brush:js">// Dissolvenza in mezzo secondo
+$(&quot;#oggetto2&quot;).fadeIn(500);</pre>
+Se invece volessimo nascondere un elemento direttamente tramite jQuery per poi mostrarlo con un&#x27;animazione possiamo concatenare due o più funzioni per non riscrivere il selettore più volte:
+<pre class="brush:js">// Nascondo un elemento e lo mostro animandolo tramite jQuery
+$(&quot;#oggetto3&quot;).hide().show(500);
+// Senno avremmo dovuto scrivere
+$(&quot;#oggetto3&quot;).hide();
+$(&quot;#oggetto3&quot;).show(500);</pre>
+Un&#x27;ultima nota che vale solo per show() e hide(), se vengono scritti senza specificare una durata, vengono eseguiti <span style="text-decoration:underline">istantaneamente</span>, senza animazione.
+<h2>In Conclusione</h2>
+Ora avete delle buone basi per animare oggetti Html con jQuery... divertitevi! E se non l&#x27;avete ancora fatto scaricate i file di esempio
+
+[btn icona=&quot;download-alt&quot; src=&quot;http://www.moebiusmania.net/wp-content/plugins/download-monitor/download.php?id=7&quot;]Animazioni con jQuery[/btn]</div><div></div></div></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{},"__N_SSG":true},"page":"/[year]/[month]/[day]/[title]","query":{"year":"2010","month":"03","day":"25","title":"tutorial-animare-oggetti-con-jquery"},"buildId":"ycLlH89c-7FSn3R4mVn5C","assetPrefix":"/mm-blog","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

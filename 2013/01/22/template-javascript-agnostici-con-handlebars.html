@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><title>MoebiusMania - Template Javascript agnostici con Handlebars</title><meta name="description" content="Tutorial, articoli e curiosità sul web e dintorni"/><link rel="icon" href="/favicon.ico"/><meta name="next-head-count" content="5"/><link rel="preload" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" data-n-g=""/><link rel="preload" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/mm-blog/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/mm-blog/_next/static/chunks/webpack-7d9a46201a9abf62.js" defer=""></script><script src="/mm-blog/_next/static/chunks/framework-6e4ba497ae0c8a3f.js" defer=""></script><script src="/mm-blog/_next/static/chunks/main-0c81636966d3c8b4.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/_app-9cd1d19dd7237c4c.js" defer=""></script><script src="/mm-blog/_next/static/chunks/50-8cf1ac8ca3219c88.js" defer=""></script><script src="/mm-blog/_next/static/chunks/669-e20bab15e87eef56.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Btitle%5D-dfa7902dbb7724f4.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_buildManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_ssgManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="Home_container__bCOhY"><main class="Home_main__nLjiQ"><h1 class="Home_title__T09hD">MoebiusMania</h1><p class="Home_description__41Owk">Tutorial, articoli e curiosità sul web e dintorni</p><div class="Home_grid__GxQ85"><h3>Template Javascript agnostici con Handlebars</h3><div>In un precedente tutorial ho trattato il tema della creazione di <a title="Tabelle dinamiche con jQuery e il templating" href="http://www.moebiusmania.net/2012/02/27/tabelle-dinamiche/">elementi dinamici lato client con Javascript</a> utilizzando dati in formato JSON come sorgente e librerie di templating per la creazione dei tag nella pagina, il tutto era però strettamente legato alla libreria <a href="http://jquery.com/" target="_blank">jQuery</a>.
+
+Non che jQuery non vada bene, anzi, sono un suo assiduo utilizzatore e fan, ma può succedere che per un motivo o per l&#x27;altro nel progetto in cui ci troviamo a lavorare è stato scelto di utilizzare un&#x27;altra libreria core (<em>o di non utilizzarne affatto</em>) e quindi non è mai una cattiva idea avere nel proprio arsenale qualche piccola libreria Javascript <strong>agnostica</strong>, ovvero che non dipende direttamente da nessun&#x27;altra libreria come MooTools, jQuery o Prototype.
+
+Oggi andiamo alla scoperta di <a href="http://handlebarsjs.com/" target="_blank">Handlebars</a> una fantastica mini-libreria per la creazione di template Html dinamici, molto simile a jQuery Tmpl ma come dicevamo prima senza prerequisiti di altre librerie! <!-- -->
+
+[btn icona=&quot;eye-open&quot; url=&quot;http://www.moebiusmania.net/tutorial/2013/handlebars_demo.html&quot;]Guarda un esempio[/btn] [btn icona=&quot;download-alt&quot; url=&quot;http://www.moebiusmania.net/wp-content/plugins/download-monitor/download.php?id=16&quot;]Scarica i sorgenti del tutorial[/btn]
+<h3>1. Caricare la libreria</h3>
+Come tutte le librerie Javascript per prima cosa includiamo il file nella nostra pagina Html:
+<pre class="brush:xml">&lt;script type=&quot;text/javascript&quot; src=&quot;js/handlebars-1.0.rc.1.js&quot;&gt;&lt;/script&gt;</pre>
+Handlebars come ho detto prima è una libreria che non ha dipendenze, quindi se dovesse esserci anche jQuery nella pagina non importa che sia inserito prima o dopo di esso.
+<h3>2. Definire la sorgente di dati</h3>
+Voglio creare una lista non ordinata che visualizzi i principali linguaggi web, quindi dovrò creare come sorgente di dati un array con queste voci ma a differenza del plugin Tmpl non possiamo prendere un semplice array come sorgente, Handlebars vuole un vero e proprio oggetto JSON:
+<pre class="brush:js">var dati1 = {
+  linguaggi:[&quot;Html&quot;,&quot;Css&quot;,&quot;Javascript&quot;,&quot;PHP&quot;]
+}</pre>
+Ora siamo pronti per creare la marcatura del template che visualizzerà questi dati.
+<h3>3. Creare il template HTML</h3>
+All&#x27;interno del body creiamo la lista che ospiterà il risultato finale
+<pre class="brush:xml">&lt;ul id=&quot;lista&quot;&gt;&lt;/ul&gt;</pre>
+Questo sarà l&#x27;unico pezzo statico di codice Html per questo esempio, le voci della lista le creeremo dinamicamente con Handlebars, quindi da qualche parte fuori dal tag &lt;body&gt; creiamo un nuovo tag &lt;script&gt; con una tipologia dedicata che ospiterà il nostro template di marcatura che useremo:
+<pre class="brush:xml">&lt;script id=&quot;voce&quot; type=&quot;text/x-handlebars-template&quot;&gt;
+ {{#each linguaggi}}
+   &lt;li&gt;{{this}}&lt;/li&gt;
+ {{/each}}
+&lt;/script&gt;</pre>
+come dicevo prima l&#x27;attributo <strong>type</strong> è settato in modo da distinguere questo tag apposta per Handlebars (<em>quindi non è esclusa la possibilità di usare più librerie di templating JS nella stessa pagina</em>), all&#x27;interno abbiamo un tag &lt;li&gt; con l&#x27;espressione <strong>{{this}}</strong> che serve come segnaposto per il valore attuale, tutto questo tag è all&#x27;interno di un&#x27;espressione <strong>{{#each}}</strong> che dice di ripetere il suo contenuto in base al numero di elementi presenti all&#x27;interno dell&#x27;array &quot;linguaggi&quot;, quindi ogni volta che verrà ripetuto il template verrà inserita un diverso elemento al suo interno.
+<h3>4. Handlebars in azione</h3>
+Adesso è giunto il momento di de elaborare il tutto con Javascript, le righe di codice necessarie sono poche
+<pre class="brush:js">// Ottengo la marcatura del template
+var struttura = document.getElementById(&quot;voce&quot;).innerHTML;
+// Compilo la marcatura in un template
+var template = Handlebars.compile(struttura);
+// Inserisco i dati nel template
+var html = template(dati1);
+// Renderizzo il tutto nella pagina
+document.getElementById(&quot;lista&quot;).innerHTML = html;</pre>
+Se ora salviamo il documento e lanciamo la pagina del browser dovremmo vedere una lista non ordinata con 4 voci, ognuno che contiene il nome di un linguaggio web.
+<h3>Bonus: Tabelle dinamiche con Handlebars</h3>
+Nel download dei file del tutorial ho incluso anche una variante della tabella dinamica trattata in <a title="Tabelle dinamiche con jQuery e il templating" href="http://www.moebiusmania.net/2012/02/27/tabelle-dinamiche/">un precedente tutorial</a> sostituendo la parte svolta dal plugin jQuery Tmpl con il codice di Handlebars!
+<h3>Conclusione</h3>
+Visti i concetti fondamentali di questa libreria dovrebbe essere relativamente semplice riuscire a costruire dei casi anche più complessi di pagine dinamiche lato client. Se dovessero esserci casistiche di utilizzo di Handlebars (<em>o di Ajax e templating in generale</em>) che vi piacerebbe vedere trattate in un tutorial lasciate un commento!</div><div></div></div></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{},"__N_SSG":true},"page":"/[year]/[month]/[day]/[title]","query":{"year":"2013","month":"01","day":"22","title":"template-javascript-agnostici-con-handlebars"},"buildId":"ycLlH89c-7FSn3R4mVn5C","assetPrefix":"/mm-blog","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

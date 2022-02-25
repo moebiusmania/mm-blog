@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><title>MoebiusMania - Compatibilità cross-browser con Modernizr</title><meta name="description" content="Tutorial, articoli e curiosità sul web e dintorni"/><link rel="icon" href="/favicon.ico"/><meta name="next-head-count" content="5"/><link rel="preload" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" data-n-g=""/><link rel="preload" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/mm-blog/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/mm-blog/_next/static/chunks/webpack-7d9a46201a9abf62.js" defer=""></script><script src="/mm-blog/_next/static/chunks/framework-6e4ba497ae0c8a3f.js" defer=""></script><script src="/mm-blog/_next/static/chunks/main-0c81636966d3c8b4.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/_app-9cd1d19dd7237c4c.js" defer=""></script><script src="/mm-blog/_next/static/chunks/50-8cf1ac8ca3219c88.js" defer=""></script><script src="/mm-blog/_next/static/chunks/669-e20bab15e87eef56.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Btitle%5D-dfa7902dbb7724f4.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_buildManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_ssgManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="Home_container__bCOhY"><main class="Home_main__nLjiQ"><h1 class="Home_title__T09hD">MoebiusMania</h1><p class="Home_description__41Owk">Tutorial, articoli e curiosità sul web e dintorni</p><div class="Home_grid__GxQ85"><h3>Compatibilità cross-browser con Modernizr</h3><div>Lavorando sul web mi capita spesso di avere problemi di compatibilità tra browser per i Css3.
+
+La soluzione?
+
+Una libreria Javascript chiamata<a href="http://www.modernizr.com/" target="_blank"> Modernizr</a> che ci permette di testare la disponibilità delle funzioni html5 e css3 nei vari browsers. In questo modo è possibile creare codice cross browser  gestendo le varie eccezioni. Vediamo nel dettaglio come installare questa libreria. <!-- -->
+
+Nella<a href="http://www.modernizr.com/download/" target="_blank"> pagina di download</a> ,è possibile scaricare la versione development , dove potete scaricare la versione completa ed e estesa della libreria per implementarla secondo le vostre specifiche. Per chi, invece, deve solo testare la compatibilità dei Css3 nel browser , è possibile settare le varie opzioni che la libreria ci offre e generare il nostro codice compresso. Incollate il codice in un file .js esterno e inseritelo nel tag &lt;head&gt; della pagina. Il team di Modernizr consiglia di includere la libreria appena dopo le importazioni Css.
+
+[avviso]Nota: Modernizr è scritto in puro Javascript, quindi non è obbligatorio caricare o utilizzare librerie come jQuery o MooTools. [/avviso]
+<pre class="brush:xml">&lt;!DOCTYPE html&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+ &lt;head&gt;
+  &lt;title&gt;La tua pagina&lt;/title&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;modernizr-latest.js&quot;&quot;&gt;&lt;/script&gt;
+ &lt;/head&gt;
+
+ &lt;body&gt;
+
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+Modernizr  supporta  i seguenti  browsers :
+
+IE6+, Firefox 3.5+, Opera 9.6+, Safari 2+, Chrome. Su mobile: iOS mobile Safari, Android WebKit browser, Opera Mobile, Firefox Mobile.
+
+Ora avete una libreria javascript che vi dice se la funzione Css3 o Html5 che avete utilizzato viene supportata o meno, lanciate la pagina nel browser e guardando il tag &lt;html&gt; con strumenti sviluppatori di Chrome o Firebug vedrete una cosa di questo tipo:
+<pre class="brush:xml">&lt;html class=&quot;js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase no-indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage no-borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio no-localstorage no-sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths&quot;&gt;
+....
+&lt;/html&gt;</pre>
+Prendendo come esempio di proprietà da monitorare il <a title="CSS tip #1 – Angoli arrotondati" href="http://www.moebiusmania.net/2008/12/09/css-tip-1-angoli-arrotondati/">border-radius</a>, se il browser la supporta viene applicata al tag &lt;html&gt; la classe &quot;borderradius&quot; altrimenti un&#x27;altra di nome &quot;no-borderradius&quot;. Dato che i browser vecchi ignorano le proprietà Css3 possiamo applicare border-radius senza problema per stilare, per esempio, un tag &lt;img&gt; e a questo punto per creare una regola alternativa nel caso questo elemento venga visualizzato da un browser che non supporta i Css3 usiamo questo selettore
+<pre class="brush:css">.no-borderradius img{
+  /* ... */
+}</pre>
+Per chi è più esperto e ha dei casi particolari da monitorare, ci sono una seri di API che servono per implementare il cuore della librerie adattandola alle vostre esigenze.
+
+Nella <a href="http://www.modernizr.com/docs/#howitworks" target="_blank">pagina dedicata</a> potete trovare tutta la documentazione inerente alla libreria con i vari esempi per ciascuna features che Modernizr supporta.</div><div></div></div></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{},"__N_SSG":true},"page":"/[year]/[month]/[day]/[title]","query":{"year":"2011","month":"11","day":"26","title":"compatibilita-cross-browser-con-modernizr"},"buildId":"ycLlH89c-7FSn3R4mVn5C","assetPrefix":"/mm-blog","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

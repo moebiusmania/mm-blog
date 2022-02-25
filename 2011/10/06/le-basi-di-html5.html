@@ -1,0 +1,49 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><title>MoebiusMania - Le basi di HTML5</title><meta name="description" content="Tutorial, articoli e curiosità sul web e dintorni"/><link rel="icon" href="/favicon.ico"/><meta name="next-head-count" content="5"/><link rel="preload" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" data-n-g=""/><link rel="preload" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/mm-blog/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/mm-blog/_next/static/chunks/webpack-7d9a46201a9abf62.js" defer=""></script><script src="/mm-blog/_next/static/chunks/framework-6e4ba497ae0c8a3f.js" defer=""></script><script src="/mm-blog/_next/static/chunks/main-0c81636966d3c8b4.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/_app-9cd1d19dd7237c4c.js" defer=""></script><script src="/mm-blog/_next/static/chunks/50-8cf1ac8ca3219c88.js" defer=""></script><script src="/mm-blog/_next/static/chunks/669-e20bab15e87eef56.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Btitle%5D-dfa7902dbb7724f4.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_buildManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_ssgManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="Home_container__bCOhY"><main class="Home_main__nLjiQ"><h1 class="Home_title__T09hD">MoebiusMania</h1><p class="Home_description__41Owk">Tutorial, articoli e curiosità sul web e dintorni</p><div class="Home_grid__GxQ85"><h3>Le basi di HTML5</h3><div>Dato che l&#x27;avvento della nuova versione di HTML è sempre più vicino e dato che ne ho parlato spesso su questo blog senza trattarlo direttamente, eccovi un primo tutorial introduttivo su HTML5... in italiano!
+
+Innanzitutto chiariamo un paio di concetti semplici, il linguaggio non è cambiato: alcuni tag sono stati deprecati e altri aggiunti, HTML è e rimarrà sempre un linguaggio di marcatura quindi tutte quelle cose che avete visto (<em>o sentito dire</em>) riguardo animazioni e interazioni semplificate, geolocalizzazione ecc.. ecc... non vengono realizzate in HTML5 ma dalle sue &quot;costole&quot; CSS3 e alcune nuove API di Javascript. <!-- -->
+
+Quello che fa HTML5 è migliorare e semplificare il modo in cui definiamo le strutture delle pagine web sia logicamente che semanticamente.
+
+Chiariti questi piccoli concetti passiamo al sodo!
+<h2>1. Doctype e inclusione Script</h2>
+La prima cosa che possiamo apprezzare riguarda proprio la prima riga delle pagine Html: il Doctype! Dopo anni di stringhe incomprensibili, difficili da ricordare e di copia-incolla finalmente finalmente questa dichiarazione è stata sintetizzata:
+<pre class="brush:xml">&lt;!DOCTYPE HTML&gt;</pre>
+Incredibile ma vero è tutto qui! E la cosa bella è che questo Doctype viene già riconosciuto dal validatore del W3C quindi anche se non state scrivendo delle pagine totalmente in Html5 potete già usarlo.
+
+Anche l&#x27;inclusione di script è stata semplificata, ora il parametro &quot;text/javascript&quot; diventa sottinteso, quindi non è necessario definirlo. Per fare un&#x27;esempio, l&#x27;inclusione di jQuery in una pagina Html5 appare così:
+<pre class="brush:xml">&lt;script src=&quot;jquery.js&quot;&gt;&lt;/script&gt;</pre><h2>2. Struttura semantica della pagina</h2>
+Finora siamo stati abituati a gestire tutta la struttura delle nostre pagine Html principalmente con il tag &lt;div&gt; e vari ID, in situzioni simili a queste:
+<pre class="brush:xml">&lt;div id=&quot;testata&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;navigazione&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;barra&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;contenuti&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;footer&quot;&gt;&lt;/div&gt;</pre>
+Il tutto ha sempre funzionato, c&#x27;era solo un problema di fondo per il quale semanticamente significano tutti la stessa cosa, un motore di ricerca che scansiona la nostra pagina non è in grado di distinguere la testata dal footer... ma ora le cose cambiano!
+
+Html5 introduce così dei nuovi tag che in gran parte delle occasioni andranno a sostituire i div per la struttura delle pagine:
+<pre class="brush:xml">&lt;header&gt;&lt;/header&gt;
+&lt;nav&gt;&lt;/nav&gt;
+&lt;aside&gt;&lt;/aside&gt;
+&lt;section id=&quot;contenuti&quot;&gt;&lt;/section&gt;
+&lt;footer&gt;&lt;/footer&gt;</pre>
+Ecco che ora abbiamo a disposizione tag dedicati a testate, navigazioni, barra laterali, sezioni e piede di pagina. A livello di rendering questi tag non offrono niente di nuovo, sono completamente neutri come i div ma permettono di differenziare le varie zone anche a livello semantico, oltre che avere anche abbastanza senso logico!
+
+A questo punto chiariamo che i tag div non devono a tutti i costi essere abbandonati, scopo di questi nuovi elementi è fornire un giusto tag per identificare alcune parti della pagina
+<h2>3. Audio e Video</h2>
+Uno degli aspetti più discussi di Html5 è la possibilità di inserire player video e audio nativamente senza passare da plugin di terze parti come Flash, QuickTime e Silverlight. Il tutto viene gestito (<em>a livello basilare</em>) con una sintassi molto semplice:
+<pre class="brush:xml">&lt;video width=&quot;320&quot; height=&quot;240&quot; src=&quot;mioVideo.mpg&quot; controls=&quot;controls&quot; poster=&quot;mioPoster.jpg&quot;&gt;
+Il tuo browser non supporta Html5!
+&lt;/video&gt;</pre>
+Il tag video mi permette di contenere un testo al suo interno che verrà visualizzato solo nel caso in cui il browser in uso non sia in grando di elaborare l&#x27;elemento (<em>un pò come l&#x27;attributo alt delle immagini</em>), width e height di regolare le dimensioni del player, src per indicare il file da visualizzare, poster di caricare un&#x27;immagine di anteprima personalizzata e controls serve per specificare di visualizzare i controlli di riproduzione.
+
+Audio funziona in modo molto simile ma senza dimensioni e poster.
+
+[avviso] Con il tag &lt;video&gt; si entra in una questione spinosa che tratteremo (<em>forse</em>) in futuro riguardo i codec, non tutti i browser supportano nativamente gli stessi codec video quindi in alcuni casi può essere necessario ricodificare i video più volte in formati diversi. Intanto potete approfondire con <a href="http://net.tutsplus.com/articles/the-state-of-video-on-the-web/" target="_blank">questo articolo (<em>in inglese</em>) di NetTuts</a>. [/avviso]
+
+Una cosa che viene spesso ignorata quando si parla di questa nuova possibilità offerta dal prossimo standard è il fatto che se vogliamo che i nostri contenuti multimediali siano fruibili in tempistiche ragionevoli <strong>resta sempre necessaria una tecnologia lato server di streaming o un buon piano di hosting</strong>, ricordatevi: Html5 fa solo il player, lato server è tutto invariato!
+<h2>4. Dove andare da qui?</h2>
+Come dico nel titolo queste sono solo alcune basi... da qui c&#x27;è ancora tutto da scoprire su HTML5!
+
+Un primo passo potrebbe essere dare un&#x27;occhiata alla <a href="http://www.w3schools.com/html5/html5_reference.asp" target="_blank">referenza globale del linguaggio Html</a>, quella offerta da W3Schools offre una buona panoramica dei tag attualmente in uso, quelli deprecati e quelli aggiunti dalla quinta revisione.
+
+Nei prossimi post e tutorial mi dedicherò più spesso a questi nuovi linguaggi quindi potete o proseguire qui nei prossimi mesi o tuffarvi nel mare di articoli presenti sul web a riguardo... HTML5 è stato uno dei più grandi buzz del 2011!</div><div></div></div></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{},"__N_SSG":true},"page":"/[year]/[month]/[day]/[title]","query":{"year":"2011","month":"10","day":"06","title":"le-basi-di-html5"},"buildId":"ycLlH89c-7FSn3R4mVn5C","assetPrefix":"/mm-blog","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

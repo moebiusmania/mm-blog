@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><title>MoebiusMania - Tabelle dinamiche con jQuery e il templating</title><meta name="description" content="Tutorial, articoli e curiosità sul web e dintorni"/><link rel="icon" href="/favicon.ico"/><meta name="next-head-count" content="5"/><link rel="preload" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" data-n-g=""/><link rel="preload" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/mm-blog/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/mm-blog/_next/static/chunks/webpack-7d9a46201a9abf62.js" defer=""></script><script src="/mm-blog/_next/static/chunks/framework-6e4ba497ae0c8a3f.js" defer=""></script><script src="/mm-blog/_next/static/chunks/main-0c81636966d3c8b4.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/_app-9cd1d19dd7237c4c.js" defer=""></script><script src="/mm-blog/_next/static/chunks/50-8cf1ac8ca3219c88.js" defer=""></script><script src="/mm-blog/_next/static/chunks/669-e20bab15e87eef56.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Btitle%5D-dfa7902dbb7724f4.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_buildManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_ssgManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="Home_container__bCOhY"><main class="Home_main__nLjiQ"><h1 class="Home_title__T09hD">MoebiusMania</h1><p class="Home_description__41Owk">Tutorial, articoli e curiosità sul web e dintorni</p><div class="Home_grid__GxQ85"><h3>Tabelle dinamiche con jQuery e il templating</h3><div>In questi &quot;tempi moderni&quot; del Web è sempre più importante che le nostre pagine siano facili da aggiornare e che la loro interattività rispecchi il più possibile quella dei normali software tradizionali, ecco perché oggi tramite jQuery e un paio di plugin vedremo come creare delle tabelle Html dinamiche, simulando un classico caso di un listini prodotti.
+
+<!-- -->
+
+Cosa vuol dire dinamiche? Significa che se in questo listino prodotti devo aggiungere o togliere un elemento dovrei evitare il più possibile di manipolare il codice Html stesso, ma modificare un file &quot;sorgente&quot; di dati nel quale ci sono esclusivamente le informazioni da visualizzare (<em>nome, prezzo e disponibilità</em>) che al caricamento della pagina verrano importate e inserite nella tabella, infine faremo in modo che questa tabella possa essere ordinabile in base al campo interessato come accade comunemente in programma come Excel o <a href="https://docs.google.com/?hl=it" target="_blank">Google Documents</a>.
+
+[btn icona=&quot;eye-open&quot; url=&quot;http://www.moebiusmania.net/tutorial/2012/tabelle_jquery/demo.html&quot;]Guarda la demo[/btn] [btn icona=&quot;download-alt&quot;  url=&quot;http://www.moebiusmania.net/wp-content/plugins/download-monitor/download.php?id=14&quot;]Scarica i file[/btn]
+<h3>Prerequisiti:</h3>
+Conoscenza base di jQuery e degli Array
+
+[avviso]In generale quando si lavora con Ajax in locale ci possono essere un paio di problemini su Chrome... se vi sembra che le chiamate Ajax non vengano fatte effettivamente è quello che succede! Spostate i file in server locale tipo Xamp e simili e le cose riprenderanno a funzionare oppure aprite Firefox ;) [/avviso]
+<h3>Cosa ci serve:</h3>
+Useremo il framework <a title="Perché Bootstrap 2 dovrebbe essere il vostro prossimo framework CSS" href="http://www.moebiusmania.net/2012/02/19/perche-bootstrap-2-dovrebbe-essere-il-vostro-prossimo-framework-css/">Bootstrap 2</a> per il CSS (<em>ha degli ottimi stili per le tabele, specie in casi di prototipizzazioni sono molto comodi!</em>) e due plugin di jQuery:<a href="https://github.com/jquery/jquery-tmpl" target="_blank"> Templating</a> e <a href="http://tablesorter.com/docs/" target="_blank">TableSorter</a> per rendere la nostra tabella dinamica e interattiva.
+<h2>1. Organizziamo i file</h2>
+Avremo 3 file javascript, un Html, un Css e un JSON... nessuno ci obbliga a disporli in modo particolare, ma mettendo le mani avanti in una possibile inclusione di questo componente in un sito completo ho preferito tenere un&#x27;organizzazione precisa e separata:
+<ul><li>il file .html nella cartella principale</li><li>i file .js nella sottocartella /script</li><li>il .css di Bootstrap in /css</li><li>il file .json nella sottocartella /dati</li></ul>
+E ora passiamo alle cose serie...
+<h2>2. I dati all&#x27;interno del file JSON</h2>
+Ogni prodotto sarà rappresentato da un oggetto Javascript con 3 proprietà: nome - prezzo - disponibilità. I prodotti tanti o pochi che siano saranno comunque una serie, quindi tenendo una struttura abbastanza classica per un file JSON, avremo un array che all&#x27;interno di ogni nodo avrà uno degli oggetti descritti poco fa:
+<pre class="brush:js">[
+  {&quot;nome&quot;:&quot;Manuale CSS&quot;,&quot;qta&quot;:12,&quot;prezzo&quot;:39},
+  {&quot;nome&quot;:&quot;Tastiera Wireless&quot;,&quot;qta&quot;:8,&quot;prezzo&quot;:80},
+  {&quot;nome&quot;:&quot;Stampante&quot;,&quot;qta&quot;:3,&quot;prezzo&quot;:200},
+  {&quot;nome&quot;:&quot;Penne&quot;,&quot;qta&quot;:20,&quot;prezzo&quot;:1},
+  {&quot;nome&quot;:&quot;Vacanza!&quot;,&quot;qta&quot;:0,&quot;prezzo&quot;:&quot;N/A&quot;}
+]</pre>
+Quindi aggiungere o rimuovere un prodotto corrisponde ad aggiungere o togliere un nodo (<em>e relativo oggetto</em>) da questo array.
+<h2>3. La pagina Html e perché Bootstrap è figo</h2>
+In un nuova pagina Html (<em>per questo esempio userò il Doctype Html5</em>) includiamo nel tag head la libreria Bootstrap di Twitter.
+
+Poi spostandoci nel body creiamo una tabella Html con solamente intestazione e corpo vuoto che chiamo &quot;prodotti&quot; e alla quale associo subito tre classi &quot;table&quot;, &quot;table-bordered&quot; e &quot;table-striped&quot; che sono definite all&#x27;interno di Bootstrap che renderanno la nostra tabella con le righe a colorazione alternata (<em>appunto, a zebra</em>) e con un bordo esterno discreto e pulito
+
+Utilizzare il tag <strong>&lt;thead&gt;</strong> per definire l&#x27;intestazione di una tabella dovrebbe essere una prassi, tuttavia è una cosa che vedo spesso ignorata in molte pagine web... in questo caso ci servirà per forza non solo per fare le cose per bene ma perché l&#x27;intestazione verrà usata anche dal plugin TableSorter.
+<h2>4. Il template Html che useremo</h2>
+Non abbiamo creato alcuna riga e/o cella nel corpo della tabella proprio perché lo scopo di una tabella dinamica è che questi elementi vengano create e inseriti in automatico tramite Javascript in base al numero di prodotti presenti nel file JSON.
+
+Per fare ciò sfrutteremo una tecnica chiamata &quot;templating&quot; per il quale un blocco di codice Html viene popolato con i dati e inserito nella pagine tante volte quanto è necessario, ma anziché sviluppare tutto a mano ci appoggeremo al plugin Tmpl di jQuery, che ha una sua struttura che dobbiamo seguire per definire il template:
+<pre class="brush:xml">&lt;script id=&quot;templateRiga&quot; type=&quot;text/javascript&quot;&gt;
+
+&lt;tr&gt;
+  &lt;td&gt;${nome}&lt;/td&gt;
+  &lt;td&gt;${qta}&lt;/td&gt;
+  &lt;td&gt;${prezzo}&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/script&gt;</pre>
+I &quot;segnaposti&quot; che iniziano con ${ verrano poi sostituiti dai valori delle variabili (<em>nel nostro caso definite nel file JSON</em>) non a caso si chiamano con gli stessi nomi.
+
+Quindi questo blocco di Html non apparirà fin dall&#x27;inizio nella pagina ma rimarrà astratto, lo richiameremo tra poco con Javascript.
+
+[avviso]Il templating nasce con PHP... tuttavia da qualche anno merito dello sviluppo delle librerie Javascript e del diffondersi delle web-app viene utilizzato molto anche lato client. Il vantaggio che i caricamenti delle pagine sono più veloci e le interazioni più reattive. Lo svantaggio è che tutto ciò che viene importato con Ajax NON viene indicizzato. [/avviso]
+<h2>5. Caricare i dati e inserirli nella pagina</h2>
+Ok, potremmo dire che è più il setup del tutto che il codice effettivo, infatti grazie a jQuery e i suoi plugin caricare un file tramite una chiamata asincrona (<em>Ajax</em>), passare i dati al template e inserire il tutto nella pagina è un&#x27;operazione semplice, inseriamo 3 tag script in fondo alla pagina: uno caricherà jQuery, il secondo il plugin di Templating e il terzo conterrà queste poche righe:
+<pre class="brush:js">// Caricamento completato documento
+$(document).ready(caricamento);
+
+function caricamento(){
+	// Chiamata Ajax per caricare il file JSON con i prodotti
+	$.getJSON(&quot;dati/prodotti.json&quot;,creaTabella);
+}
+
+// Funzione che viene eseguita al termine del caricamento
+// la variabile &quot;informazioni&quot; ospiterà il contenuto del file JSON
+function creaTabella(informazioni){
+	// Inserisco il template con i dati esterni nella tabella
+	$(&quot;#templateRiga&quot;).tmpl(informazioni)
+		.appendTo(&quot;#prodotti&quot;);
+}</pre>
+La riga dentro la funzione &quot;creaTabella&quot; si occupa di selezionare il template Html, chiamare il plugin Tmpl passandogli i dati che abbiamo caricato dal file JSON e con il metodo .appendTo() inserire il risultato dell&#x27;operazione nel corpo della tabella.
+
+A questo punto salvate il file e lanciatelo nel browser, dovreste vedere la tabella non più vuota ma con i dati definiti nel file esterno.
+<h2>6. Rendere ordinabile la tabella</h2>
+Per far percepire il tutto più come un&#x27;applicazione e meno come una pagina possiamo fare in modo che cliccando sulle intestazioni delle colonne queste vengano riordinate, grazie al plugin TableSorter (<em>che dovrà essere caricato prima dello script con le nostre azioni</em>) ci basterà aggiungere una riga nella funzione &quot;creaTabella&quot;:
+<pre class="brush:js">function creaTabella(informazioni){
+	...
+	// Rendo la tabella ordinabile
+	$(&quot;#prodotti&quot;).tablesorter();
+}</pre>
+Ora salvate e riaggiornate nel browser!
+<h2>7. Idee per il dopo</h2>
+Considerato che la riga che si occupa di fare la chiamata Ajax è all&#x27;interno di una funzione Javascript si possono provare delle alternative rispetto alla soluzione che vi ho presentato qui, anziche caricare il tutto all&#x27;avvio della pagina è possibile:
+<ul><li>creare un pulsante e far caricare i dati esterni al click su di esso</li><li>impostare un timer e far aggiornare i contenuti della tabella ogni x millisecondi</li></ul><h2>In chiusura</h2>
+Alla fine, merito sopratutto di jQuery e di questi due suoi plugin, non è neanche stato troppo difficile realizzare questo componente! Come avete visto Bootstrap è molto comodo ma ricordatevi che dovrebbe appunto essere il vostro punto di inizio con i Css non una scusa per non stilare ulteriormente gli elementi!
+
+(F<em>oto originale di <a href="http://www.flickr.com/photos/goosmurf/3521520875/" target="_blank">goosmurf</a></em>)</div><div></div></div></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{},"__N_SSG":true},"page":"/[year]/[month]/[day]/[title]","query":{"year":"2012","month":"02","day":"27","title":"tabelle-dinamiche"},"buildId":"ycLlH89c-7FSn3R4mVn5C","assetPrefix":"/mm-blog","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

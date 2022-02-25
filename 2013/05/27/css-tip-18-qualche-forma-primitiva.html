@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><title>MoebiusMania - CSS Tip #18 - Qualche forma primitiva</title><meta name="description" content="Tutorial, articoli e curiosità sul web e dintorni"/><link rel="icon" href="/favicon.ico"/><meta name="next-head-count" content="5"/><link rel="preload" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" data-n-g=""/><link rel="preload" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/mm-blog/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/mm-blog/_next/static/chunks/webpack-7d9a46201a9abf62.js" defer=""></script><script src="/mm-blog/_next/static/chunks/framework-6e4ba497ae0c8a3f.js" defer=""></script><script src="/mm-blog/_next/static/chunks/main-0c81636966d3c8b4.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/_app-9cd1d19dd7237c4c.js" defer=""></script><script src="/mm-blog/_next/static/chunks/50-8cf1ac8ca3219c88.js" defer=""></script><script src="/mm-blog/_next/static/chunks/669-e20bab15e87eef56.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Btitle%5D-dfa7902dbb7724f4.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_buildManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_ssgManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="Home_container__bCOhY"><main class="Home_main__nLjiQ"><h1 class="Home_title__T09hD">MoebiusMania</h1><p class="Home_description__41Owk">Tutorial, articoli e curiosità sul web e dintorni</p><div class="Home_grid__GxQ85"><h3>CSS Tip #18 - Qualche forma primitiva</h3><div>Più si esplora il mondo dei CSS (<em>compresi la 3a imminente versione</em>) più si cerca di fare il massimo possibile graficamente con questo linguaggio!
+
+In questo tip daremo un&#x27;occhiata ad alcune idee per realizzare delle forme primitive in CSS: rettangoli, cerchi, ovali e triangoli. <!-- -->
+
+Come tutte le cose questo approccio ha dei pro e dei contro:
+<ul><li><strong>Pro:</strong> un paio di righe di codice sono sempre più veloci da caricare di un&#x27;immagine, più facile l&#x27;aggiornamento (<em>non devo ri-esportare ogni volta</em>) della pagina ed essendo i CSS elaborati dal browser sono praticamente vettoriali quindi diverse densità di pixel, come i display HiDPI non ci fanno paura!</li><li><strong>Contro:</strong> a volte per forme semplici ci si impiega meno tempo a disegnarle, le immagini se vengono riutilzzate più volte nello stesso sito vengono &quot;cachate&quot; velocizzando sensibilmente i caricamenti della stessa immagine dopo la prima volta.</li></ul><h4>Rettangoli/Quadrati</h4>
+Beh questi sono i più facili, dato che ogni elemento in una pagina Html è un rettangolo (<em>vedi il box model</em>) ci bastano delle proprietà molto basilari come altezza e larghezza:
+<pre class="brush:css">.rettangolo{
+   width: 300px;
+   height: 150px;
+   background-color: rgb(160,0,0);
+}</pre><h4>Cerchi e Ovali</h4>
+Per creare un cerchio creiamo prima un quadrato e dopo utilizziamo la proprietà border-radius aumentando l&#x27;arrotondamento degli angoli fino a farli incontrare tutti e 4, basta la metà del valore di altezza e larghezza per arrivare a questo:
+<pre class="brush:css">.cerchio{
+   width: 300px;
+   height: 150px;
+   border-radius: 50%;
+   background-color: rgb(160,0,0);
+}</pre>
+Se usiamo il valore in percentuale per i border-radius potremo disegnare degli ovali semplicemente partendo da un rettangolo e aggiungendo poi gli angoli arrtondati.
+<h4>Triangoli</h4>
+Per creare un triangolo utilizzeremo i bordi dell&#x27;elemento, in realtà i bordi che vengono disegnati intorno all&#x27;area di un elemento quando si incontrano nei 4 angoli si tagliano in obliquo (<em>vedi l&#x27;immagine qui sotto</em>), quindi per disegnare un triangolo dovremo creare un elemento senza altezza e larghezza, con un bordo visibile e gli altri 3 trasparenti:
+<p style="text-align:center"><img class="aligncenter size-full wp-image-3630" alt="Bordi CSS" src="http://www.moebiusmania.net/wp-content/uploads/2013/05/bordi.png" width="500" height="300"/></p><pre class="brush:css">.triangolo{
+   border: 75px solid transparent;
+   border-left: 75px solid rgb(160,0,0);
+}</pre>
+Usiamo il valore &quot;transparent&quot; per il colore, funziona come &quot;opacitiy&quot; con la differenza che non si può creare una semitrasparenza (<em>come per esempio 0.5</em>) e che viene compreso anche dai vecchi IE. Dato che il bordo viene creato sia prima che dopo la metà del lato che ci interessa dovremo dare al bordo la metà dello spessore della dimensione che vorremo alla fine, nell&#x27;esempio ho assegnato 75 pixel per avere un triangolo di 150 pixel.
+
+Queste piccoli soluzioni lavorano cross-browser, ad accezione dei border-radius che non vengono visualizzati su IE8 e inferiori.
+
+Alcuni interessanti esercizi di stile di &quot;disegno&quot; con primitive CSS sono <a href="http://css-tricks.com/examples/TreehouseFrog/" target="_blank">la rana</a> di Chris Coiyer e i <a href="http://www.bchanx.com/logos-in-pure-css-demo" target="_blank">loghi dei brand in puro CSS</a>.
+
+[btn icona=&quot;eye-open&quot; url=&quot;http://www.moebiusmania.net/tutorial/2013/primitive_css.html&quot;]Guarda una pagina di esmpio con questo codice[/btn]</div><div></div></div></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{},"__N_SSG":true},"page":"/[year]/[month]/[day]/[title]","query":{"year":"2013","month":"05","day":"27","title":"css-tip-18-qualche-forma-primitiva"},"buildId":"ycLlH89c-7FSn3R4mVn5C","assetPrefix":"/mm-blog","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

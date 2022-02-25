@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><title>MoebiusMania - Libri sfogliabili con Javascript!</title><meta name="description" content="Tutorial, articoli e curiosità sul web e dintorni"/><link rel="icon" href="/favicon.ico"/><meta name="next-head-count" content="5"/><link rel="preload" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/2974ebc8daa97b04.css" data-n-g=""/><link rel="preload" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" as="style"/><link rel="stylesheet" href="/mm-blog/_next/static/css/515b0d205f44da3d.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/mm-blog/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/mm-blog/_next/static/chunks/webpack-7d9a46201a9abf62.js" defer=""></script><script src="/mm-blog/_next/static/chunks/framework-6e4ba497ae0c8a3f.js" defer=""></script><script src="/mm-blog/_next/static/chunks/main-0c81636966d3c8b4.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/_app-9cd1d19dd7237c4c.js" defer=""></script><script src="/mm-blog/_next/static/chunks/50-8cf1ac8ca3219c88.js" defer=""></script><script src="/mm-blog/_next/static/chunks/669-e20bab15e87eef56.js" defer=""></script><script src="/mm-blog/_next/static/chunks/pages/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Btitle%5D-dfa7902dbb7724f4.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_buildManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_ssgManifest.js" defer=""></script><script src="/mm-blog/_next/static/ycLlH89c-7FSn3R4mVn5C/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="Home_container__bCOhY"><main class="Home_main__nLjiQ"><h1 class="Home_title__T09hD">MoebiusMania</h1><p class="Home_description__41Owk">Tutorial, articoli e curiosità sul web e dintorni</p><div class="Home_grid__GxQ85"><h3>Libri sfogliabili con Javascript!</h3><div>Dopo il grande successo di 2 anni fa del tutorial sul libro sfogliabile con InDesign ecco qua un altro modo per creare dei libri sfogliabili nelle vostre pagine web, grazie al plugin <a href="http://builtbywill.com/code/booklet/" target="_blank">jQuery Booklet</a> scritto da <a href="http://builtbywill.com/#about" target="_blank">Built by Will</a> (<em>a quanto pare al momento vuole rimanere semi-anonimo</em>)!
+
+In questo breve tutorial vi mostrerò (<em>qui una <a href="http://www.moebiusmania.net/tutorial/booklet/" target="_blank">demo</a></em>) come utilizzare questo plugin e alcune, ma non tutte, delle sue funzionalità e particolarità. Quindi basta chiacchiere, andate a scaricare il plugin e via con il codice!<h3>Software richiesto</h3>
+Code editor di vostra fiducia, stando sull&#x27;open source recentemente ho &quot;abbandonato&quot; Aptana in favore di <a href="http://www.activestate.com/komodo-edit" target="_blank">Komodo Edit</a>, dategli un occhio non è male!
+<h3>Prerequisiti</h3>
+Conoscenze basilari di jQuery, attenzione che Booklet dipende dai plugin Easing e jQuery UI!
+<h3>Argomenti trattati</h3>
+Inclusione e utilizzo del plugin jQuery Booklet
+<h2>1. Inclusione del plugin e occhio alle dipendenze!</h2>
+Dovremo copiare nella cartella del nostro progetto tutta la cartella presente nell&#x27;archivio zip scaricato dal sito del plugin che sono: vari Javascript, un Css e una cartella con alcune immagini.
+
+Oltre ad includere jQuery e il file del plugin, dovremo aggiungere altri 2 plugin che fanno da &quot;base&quot; per il nostro libro sfogliabile: jQuery UI e Easing. Visto che sono tutti plugin di jQuery le dipendenze dovranno stare <strong>dopo l&#x27;inclusione della libreria e prima del plugin Booklet</strong>, quindi (<em>mantenendo la buona pratica di includere i file Javascript dopo il tag body</em>) l&#x27;elenco delle nostre inclusioni sarà il seguente:
+<pre class="brush:xml">&lt;script type=&quot;text/javascript&quot; src=&quot;booklet/jquery-1.5.min.js&quot; &gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;booklet/jquery-ui-1.8.9.custom.min.js&quot; &gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;booklet/jquery.easing.1.3.js&quot; &gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;booklet/jquery.booklet.1.2.0.min.js&quot; &gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; &gt;
+
+// Qui il nostro codice
+
+&lt;/script&gt;</pre>
+Ho optato per la versione minificata (<em>.min</em>) di Booklet per il minor peso, ma se vogliamo studiarci il codice al suo interno dovremo aprire la versione normale. L&#x27;ordine di jQuery UI e Easing è indifferente, l&#x27;importante è come ho detto prima che stiano dopo jQuery ma prima di Booklet. Infine c&#x27;è un tag Javascript dove scriveremo il codice per attivare il plugin, ricordo che se volete potete anche scrivere in un file esterno e importare anche quello, ma sempre alla fine in quanto sarà codice che dipende da Booklet, che a sua volta dipende da tutti gli altri...
+
+Non dimentichiamoci di includere anche il file .css di Booklet nella head del nostro documento!
+<pre class="brush:xml">&lt;link href=&quot;booklet/jquery.booklet.1.2.0.css&quot; type=&quot;text/css&quot; rel=&quot;stylesheet&quot; &gt;</pre>
+Lo so... è un po di roba, ma serve tutta a farci risparmiare tempo!
+<h2>2. Anatomia del codice Html necessario</h2>
+Come molti plugin evoluti di jQuery anche Booklet ha bisogno di una struttura Html definita per funzionare, quindi non possiamo strutturare i nostri contenuti liberamente ma dobbiamo seguire una piccola regola che è questa:
+<pre class="brush:xml">&lt;div id=&quot;mioLibro&quot;&gt;
+
+&lt;div class=&quot;b-load&quot;&gt;
+
+&lt;div&gt;&lt;!-- pagina 1 --&gt;&lt;/div&gt;
+
+&lt;div&gt;&lt;!-- pagina 2 --&gt;&lt;/div&gt;
+
+&lt;div&gt;&lt;!-- pagina 3 --&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;</pre>
+Prima di tutto c&#x27;è un div contenitore che serve principalmente da identificatore del libro, quindi gli diamo semplicemente un ID a nostra scelta. Al suo interno un altro div con una classe &quot;b-load&quot;, questo sarà l&#x27;elemento che farà compiere al plugin la sua magia, quindi è importante che ci sia e che abbia <strong>esattamente</strong> questa classe assegnata! Infine all&#x27;interno di questo &quot;b-load&quot; ogni div inserito (<em>con o senza id e classi, dipende cosa dovete fare voi</em>) rappresenterà una pagina, in questo esempio di codice li ho lasciati vuoti, idealmente dovrebbero esserci all&#x27;interno di ognuno i vari contenuti: titoli, paragrafi, immagini, ec...
+<h2>3. Diamo vita al libro!</h2>
+A questo punto, dopo un setup non proprio brevissimo, siamo pronti a far partire il tutto, spostiamoci all&#x27;interno dell&#x27;ultimo tag script (<em>o del vostro file esterno</em>) e scriviamo questa semplice riga di codice:
+<pre class="brush:js">$(&quot;#mioLibro&quot;).booklet();</pre>
+Questa direi che è stata facile, abbiamo solo selezionato il div principale tramite id con jQuery e abbiamo usato la funzione .booklet() per avviare il tutto. Volete customizzare un po il libro? Mano ai Css e alle opzioni del plugin!
+<h2>4. Qualche opzione...</h2>
+Sul sito trovate anche le <a href="http://builtbywill.com/code/booklet/options" target="_blank">opzioni del plugin</a> per regolare alcune funzionalità come altezza, larghezza, velocità delle animazioni, aggiunta di tabs o frecce per una navigazione alternativa, alcuni esempi:
+<pre class="brush:xml">$(&quot;#mioLibro&quot;).booklet({
+
+  width: 600,  // setto la larghezza
+
+  arrows: true,  // attivo le frecce di navigazione
+
+  pagePadding: 20,  // imposto un padding per le pagine
+
+  speeed: 1500,  // durata delle transizioni di pagina
+
+});</pre>
+Volendo potreste creare dei vostri pulsanti e tramite queste funzioni gestire la navigazione del libro:
+<pre class="brush:xml">$(&quot;#mioLibro&quot;).booklet(&quot;prev&quot;);  // pagina precedente
+
+$(&quot;#mioLibro&quot;).booklet(&quot;next&quot;);  // pagina succcessiva
+
+$(&quot;#mioLibro&quot;).booklet(4);  // pagina 5</pre>
+Attenzione che l&#x27;ultimo comando parte da 0, quindi &quot;4&quot; è riferito alla quinta pagina!
+<h2>5. Funziona su iPad (e mobile in generale)?</h2>
+Ho provato questo plugin su un iPad 2 e un HTC Desire e la brutta notizia è che essendo un plugin che si basa molto sulle interazioni con il mouse in ambito touch/mobile da scarsi risultati. Visto che comunque c&#x27;è la possibilità di creare dei pulsanti di navigazione delle pagine vi consiglio fortemente di farli se il vostro obiettivo principale sono i tablet e simili.
+<h2>6. Considerazioni finali</h2>
+Vi suggerisco di preparare prima in Photoshop (<em>o qualunque sia il vostro editor di immagini preferito</em>) le immagini e le foto da inserire nel libro delle dimensioni che vi servono, tanto ricordatevi che decidete voi la grandezza del tutto!
+
+Usate Firebug o simili per scovare i nomi degli elementi generati dal plugin Booklet per poterli stilare in Css.
+
+Potete scaricarvi i file dell&#x27;esempio [download id=&quot;13&quot; format=&quot;1&quot;]  da controllarvi con comodo.
+
+Visto che è una feature molto richiesta (<em>da quello che ho notato nei commenti del precedente post</em>) vi avviso subito che anche in questa soluzione <strong><span style="text-decoration:underline">non vi è possibilità di zoomare</span></strong> le pagine.</div><div></div></div></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{},"__N_SSG":true},"page":"/[year]/[month]/[day]/[title]","query":{"year":"2011","month":"09","day":"08","title":"libri-sfogliabili-con-javascript"},"buildId":"ycLlH89c-7FSn3R4mVn5C","assetPrefix":"/mm-blog","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
